@@ -1241,6 +1241,8 @@ MonoBehaviour:
   wavewEndUI: {fileID: 187788540}
   enemies:
   - {fileID: 3898975501878831438, guid: db2e754177514644a8de01b84d71d933, type: 3}
+  - {fileID: 3898975501878831438, guid: 57efa80dbfaaf504999ea42b1efbba9a, type: 3}
+  - {fileID: 3898975501878831438, guid: 55315038c6459cd448c0316c6bd94366, type: 3}
   waveText: {fileID: 503144154}
   player: {fileID: 660082056}
 --- !u!4 &1343864691

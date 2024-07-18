@@ -22,9 +22,11 @@ public class spawnManager : MonoBehaviour
 
     private SimplePlayer simplePlayer;
     public GameObject player;
+    public ShootingPlayer shootingPlayer;
     void Start()
     {
         simplePlayer = player.GetComponent<SimplePlayer>();
+        shootingPlayer = player.GetComponent<ShootingPlayer>();
     }
 
     void Update()
@@ -37,10 +39,18 @@ public class spawnManager : MonoBehaviour
             wave++;
             waveText.text = ("wave: " + wave);
             simplePlayer.movable = false;
+            shootingPlayer.ammo = shootingPlayer.maxAmmo;
+            shootingPlayer.shootable = false;
+            shootingPlayer.ammoText.text = ("Ammo: " + shootingPlayer.ammo);
+
         }
         if (!spawning && enemys > 0)
         {
             StartCoroutine (Spawn());
+        }
+        if (waveEndUp && Input.GetKeyDown(KeyCode.Space))
+        {
+            waveStart();
         }
     }
 
@@ -54,8 +64,17 @@ public class spawnManager : MonoBehaviour
         spawning = true;
         if (enemys > 0)
         {
-            Instantiate(enemies[0], generateSpawn(), Quaternion.Euler(0,180,0));
-            enemys -= 1;
+            if (Random.Range(1,5) == 1 && enemys >= 2)
+            {
+                Instantiate(enemies[Random.Range(1,3)], generateSpawn(), Quaternion.Euler(0, 180, 0));
+                enemys -= 2;
+            }
+            else
+            {
+                Instantiate(enemies[0], generateSpawn(), Quaternion.Euler(0, 180, 0));
+                enemys -= 1;
+            }
+            
             Debug.Log("enemies left " + enemys);
         }
         if (enemys > 0)
@@ -84,6 +103,7 @@ public class spawnManager : MonoBehaviour
         wavewEndUI.SetActive(false);
         waveEndUp = false;
         simplePlayer.movable = true;
+        shootingPlayer.shootable = true;
         
     }
 
