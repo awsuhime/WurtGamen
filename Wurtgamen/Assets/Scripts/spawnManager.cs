@@ -39,6 +39,8 @@ public class spawnManager : MonoBehaviour
             wave++;
             waveText.text = ("wave: " + wave);
             simplePlayer.movable = false;
+            shootingPlayer.charging = false;
+            shootingPlayer.charge = 0;
             shootingPlayer.ammo = shootingPlayer.maxAmmo;
             shootingPlayer.shootable = false;
             shootingPlayer.ammoText.text = ("Ammo: " + shootingPlayer.ammo);
@@ -64,9 +66,15 @@ public class spawnManager : MonoBehaviour
         spawning = true;
         if (enemys > 0)
         {
-            if (Random.Range(1,5) == 1 && enemys >= 2)
+            if (Random.Range(1, enemys*2) == 1 && enemys >= 3)
             {
-                Instantiate(enemies[Random.Range(1,3)], generateSpawn(), Quaternion.Euler(0, 180, 0));
+                Instantiate(enemies[3], generateSpawn(), Quaternion.Euler(0, 180, 0));
+                enemys -= 3;
+
+            }
+            else if (Random.Range(1, enemys) == 1 && enemys >= 2)
+            {
+                Instantiate(enemies[Random.Range(1, 3)], generateSpawn(), Quaternion.Euler(0, 180, 0));
                 enemys -= 2;
             }
             else

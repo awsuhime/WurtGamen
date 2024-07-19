@@ -8,8 +8,8 @@ public class ShootingPlayer : MonoBehaviour
     public GameObject[] projectile;
 
     public float heldStart;
-    private int charge;
-    private bool charging;
+    public int charge;
+    public bool charging;
     public int ammo = 10;
     public int maxAmmo = 10;
     private int heldAmmo;
@@ -135,7 +135,7 @@ public class ShootingPlayer : MonoBehaviour
         {
 
             ammo += 1;
-            Debug.Log("ammo " + ammo);
+            
             ammoText.text = ("Ammo: " + ammo);
         }
         StartCoroutine(Reload());

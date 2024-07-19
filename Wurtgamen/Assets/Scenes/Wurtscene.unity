@@ -728,6 +728,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 12
   movable: 1
+  health: 100
 --- !u!54 &660082062
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -775,8 +776,14 @@ MonoBehaviour:
   - {fileID: 2219103898735051782, guid: 9f00260f30639db408618f4e3aa8b7dc, type: 3}
   - {fileID: 2219103898735051782, guid: ccd705914b5235f4b9590415a17bc29f, type: 3}
   heldStart: 0
+  charge: 0
+  charging: 0
   ammo: 10
   maxAmmo: 10
+  reloadRate: 0.4
+  chargeInt: 0.6
+  shootable: 1
+  reloadable: 1
   ammoText: {fileID: 512321180}
 --- !u!1 &910743197
 GameObject:
@@ -1243,8 +1250,10 @@ MonoBehaviour:
   - {fileID: 3898975501878831438, guid: db2e754177514644a8de01b84d71d933, type: 3}
   - {fileID: 3898975501878831438, guid: 57efa80dbfaaf504999ea42b1efbba9a, type: 3}
   - {fileID: 3898975501878831438, guid: 55315038c6459cd448c0316c6bd94366, type: 3}
+  - {fileID: 366422003080315010, guid: 67c6860486516184280393c48661e158, type: 3}
   waveText: {fileID: 503144154}
   player: {fileID: 660082056}
+  shootingPlayer: {fileID: 0}
 --- !u!4 &1343864691
 Transform:
   m_ObjectHideFlags: 0
