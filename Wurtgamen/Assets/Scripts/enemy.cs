@@ -9,6 +9,9 @@ public class enemy : MonoBehaviour
     public bool ranged = false;
     public float fireRate = 1f;
     public float stopRange = 20f;
+    public int guard = 0;
+    public Material altMaterial;
+
     public GameObject projectile;
     private MovingObject movingObject;
     
@@ -33,20 +36,35 @@ public class enemy : MonoBehaviour
 
     public void takeDamage(int dam)
     {
-        Debug.Log(health);
-        health -= dam;
-        if (health <= 0)
+        if (guard == 0)
         {
-            Destroy(gameObject);
+            Debug.Log(health);
+            health -= dam;
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
+        else
+        {
+            guard -= 1;
+            if (guard == 0)
+            {
+                meshRenderer.material = altMaterial;
+            }
+        }
+        
     }
 
     public void Glow(int dam)
     {
-        if (dam >= health)
-        {
-            meshRenderer.material.EnableKeyword("_EMISSION");
-        }
+        
+            if (dam >= health)
+            {
+                meshRenderer.material.EnableKeyword("_EMISSION");
+            }
+        
+        
     }
 
     public void deGlow()

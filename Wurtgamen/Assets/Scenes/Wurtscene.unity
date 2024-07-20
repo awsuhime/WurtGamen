@@ -1251,6 +1251,7 @@ MonoBehaviour:
   - {fileID: 3898975501878831438, guid: 57efa80dbfaaf504999ea42b1efbba9a, type: 3}
   - {fileID: 3898975501878831438, guid: 55315038c6459cd448c0316c6bd94366, type: 3}
   - {fileID: 366422003080315010, guid: 67c6860486516184280393c48661e158, type: 3}
+  - {fileID: 3898975501878831438, guid: 2257c1de4d2f4f145b763d466b49998c, type: 3}
   waveText: {fileID: 503144154}
   player: {fileID: 660082056}
   shootingPlayer: {fileID: 0}

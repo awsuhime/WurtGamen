@@ -23,6 +23,8 @@ public class spawnManager : MonoBehaviour
     private SimplePlayer simplePlayer;
     public GameObject player;
     public ShootingPlayer shootingPlayer;
+
+    private MovingObject[] movers;
     void Start()
     {
         simplePlayer = player.GetComponent<SimplePlayer>();
@@ -44,6 +46,11 @@ public class spawnManager : MonoBehaviour
             shootingPlayer.ammo = shootingPlayer.maxAmmo;
             shootingPlayer.shootable = false;
             shootingPlayer.ammoText.text = ("Ammo: " + shootingPlayer.ammo);
+            movers = FindObjectsOfType<MovingObject>();
+            for (int i = 0; i < movers.Length; i++)
+            {
+                Destroy(movers[i].gameObject);
+            }
 
         }
         if (!spawning && enemys > 0)
@@ -66,13 +73,13 @@ public class spawnManager : MonoBehaviour
         spawning = true;
         if (enemys > 0)
         {
-            if (Random.Range(1, enemys*2) == 1 && enemys >= 3)
+            if (Random.Range(1, Mathf.RoundToInt(20f / wave / 2) + 5) == 1 && enemys >= 3)
             {
-                Instantiate(enemies[3], generateSpawn(), Quaternion.Euler(0, 180, 0));
+                Instantiate(enemies[Random.Range(3, 5)], generateSpawn(), Quaternion.Euler(0, 180, 0));
                 enemys -= 3;
 
             }
-            else if (Random.Range(1, enemys) == 1 && enemys >= 2)
+            else if (Random.Range(1, Mathf.RoundToInt(10f / wave/2) + 3) == 1 && enemys >= 2)
             {
                 Instantiate(enemies[Random.Range(1, 3)], generateSpawn(), Quaternion.Euler(0, 180, 0));
                 enemys -= 2;
