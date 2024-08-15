@@ -122,6 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 7
   lifeTime: 9
+  movable: 1
 --- !u!114 &8439571124524679383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,6 +136,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 6
+  ranged: 0
+  fireRate: 1
+  stopRange: 20
+  guard: 0
+  active: 0
+  moveInterval: 2
+  moveRange: 3
+  altMaterial: {fileID: 0}
+  projectile: {fileID: 0}
 --- !u!54 &6615745125951791993
 Rigidbody:
   m_ObjectHideFlags: 0

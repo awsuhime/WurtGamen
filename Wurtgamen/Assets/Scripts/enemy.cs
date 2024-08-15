@@ -10,6 +10,9 @@ public class enemy : MonoBehaviour
     public float fireRate = 1f;
     public float stopRange = 20f;
     public int guard = 0;
+    public bool active = false;
+    public float moveInterval = 1f;
+    public float moveRange = 1f;
     public Material altMaterial;
 
     public GameObject projectile;
@@ -22,6 +25,10 @@ public class enemy : MonoBehaviour
         if (ranged)
         {
             StartCoroutine(fire());
+        }
+        if (active)
+        {
+            StartCoroutine(move());
         }
         
     }
@@ -78,5 +85,13 @@ public class enemy : MonoBehaviour
         Instantiate(projectile, transform.position, Quaternion.identity);
         StartCoroutine(fire());
         
+    }
+
+    System.Collections.IEnumerator move()
+    {
+        yield return new WaitForSeconds(moveInterval);
+        transform.Translate(moveRange, 0, 0);
+        moveRange *= -1;
+        StartCoroutine(move());
     }
 }
