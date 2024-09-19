@@ -8,7 +8,7 @@ public class spawnManager : MonoBehaviour
     private int enemiesLeft;
 
     private int enemys = 0;
-    private int wave = 0;
+    public int wave = 0;
     private bool waveEndUp;
 
     public float spawnLower = 2.5f;
@@ -73,9 +73,9 @@ public class spawnManager : MonoBehaviour
         spawning = true;
         if (enemys > 0)
         {
-            if (Random.Range(1, Mathf.RoundToInt(20f / wave / 2) + 5) == 1 && enemys >= 3)
+            if (Random.Range(1, Mathf.RoundToInt(15f / wave / 2) + 5) == 1 && enemys >= 3)
             {
-                Instantiate(enemies[Random.Range(3, 5)], generateSpawn(), Quaternion.Euler(0, 180, 0));
+                Instantiate(enemies[Random.Range(3, 6)], generateSpawn(), Quaternion.Euler(0, 180, 0));
                 enemys -= 3;
 
             }

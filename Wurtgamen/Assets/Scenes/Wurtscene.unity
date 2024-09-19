@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1243,6 +1242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 583f64796331c51488dadf73bf0afadb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wave: 10
   spawnLower: 2.5
   spawnUpper: 4
   wavewEndUI: {fileID: 187788540}
@@ -1252,6 +1252,7 @@ MonoBehaviour:
   - {fileID: 3898975501878831438, guid: 55315038c6459cd448c0316c6bd94366, type: 3}
   - {fileID: 366422003080315010, guid: 67c6860486516184280393c48661e158, type: 3}
   - {fileID: 3898975501878831438, guid: 2257c1de4d2f4f145b763d466b49998c, type: 3}
+  - {fileID: 6821923570960046950, guid: 5d411c77f6370324e8cc5944a8fed65e, type: 3}
   waveText: {fileID: 503144154}
   player: {fileID: 660082056}
   shootingPlayer: {fileID: 0}
