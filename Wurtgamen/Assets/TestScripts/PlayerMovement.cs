@@ -23,14 +23,62 @@ public class PlayerMovement : MonoBehaviour
     float nearestDistance = 2f;
 
     Vector3 movement;
+    Vector3 lookingSpot;
     void Start()
     {
         characterController = GetComponent<CharacterController>();
     }
 
+    void FixedUpdate()
+    {
+        float hori = Input.GetAxisRaw("Horizontal");
+        float vert = Input.GetAxisRaw("Vertical");
+
+        movement = new Vector3(hori, 0, vert).normalized * speed;
+        if (hori != 0 || vert != 0)
+        {
+            transform.LookAt(transform.position + movement);
+            lookingSpot = movement * 7;
+        }
+        characterController.Move(movement);
+
+
+    }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !holding)
+        if (holding)
+        {
+            heldObject.transform.position = new(transform.position.x, transform.position.y + heldObject.transform.localScale.y/2 + 2, transform.position.z);
+            Vector3 roundedPosition = new Vector3(Mathf.Round(transform.position.x + lookingSpot.x), heldObject.transform.localScale.y / 2, Mathf.Round(transform.position.z + lookingSpot.z)) ;
+            Collider[] hit = Physics.OverlapBox(roundedPosition, new(1f, heldObject.transform.localScale.y/2, 1f), Quaternion.identity, stoppa);
+            for (int i = 0; i < hit.Length; i++)
+            {
+                if (hit[i].gameObject == heldObject.gameObject)
+                {
+                    hit[i] = null;
+                }
+            }
+
+            if (hit.Length == 0)
+            { 
+            pickupScript.ghost.SetActive(true);
+
+            pickupScript.ghost.transform.position = roundedPosition;
+            clearPlace = true;
+            
+            }
+            else
+            {
+
+                pickupScript.ghost.SetActive(false);
+                clearPlace = false;
+            }
+            
+
+            hit = null;
+
+        }
+        if (Input.GetKeyDown(KeyCode.E) && !holding)
         {
             pickups = GameObject.FindGameObjectsWithTag("Pickup");
             for (int i = 0; i < pickups.Length; i++)
@@ -48,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
             }
             if (objectFound && nearestDistance < pickupDistance)
             {
+                nearestDistance = 5f;
                 objectFound = false;
                 Debug.Log(pickup.name);
                 holding = true;
@@ -56,45 +105,13 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
-        if (holding)
+        if (clearPlace && Input.GetKeyDown(KeyCode.E) && holding)
         {
-            heldObject.transform.position = new (transform.position.x, transform.position.y + 12, transform.position.z);
-            Vector3 roundedPosition = new Vector3 (Mathf.Round(transform.position.x), transform.position.y, Mathf.Round(transform.position.z));
-            Collider[] hit = Physics.OverlapSphere(roundedPosition, .1f, stoppa);
-            if (hit.Length == 0)
-            {
-                pickupScript.ghost.SetActive(true);
-                
-                pickupScript.ghost.transform.position = roundedPosition;
-                clearPlace = true;
-
-            }
-            else
-            {
-
-                pickupScript.ghost.SetActive(false);
-                clearPlace = false;
-            }
-            if (clearPlace && Input.GetKeyDown(KeyCode.Space))
-            {
-                heldObject.transform.position = ghostPosition;
+                Debug.Log("Object placed down, object name: " + heldObject.name);
+                heldObject.transform.position = pickupScript.ghost.transform.position;
                 holding = false;
                 clearPlace = false;
-
-            }
-            hit = null;
-            
+                pickupScript.ghost.SetActive(false);
         }
-    }
-
-    void FixedUpdate()
-    {
-        float hori = Input.GetAxisRaw("Horizontal");
-        float vert = Input.GetAxisRaw("Vertical");
-
-        movement = new Vector3(hori, 0, vert).normalized * speed;
-        characterController.Move(movement);
-
-        
     }
 }
