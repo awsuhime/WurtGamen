@@ -51,11 +51,22 @@ public class PlayerMovement : MonoBehaviour
             heldObject.transform.position = new(transform.position.x, transform.position.y + heldObject.transform.localScale.y/2 + 2, transform.position.z);
             Vector3 roundedPosition = new Vector3(Mathf.Round(transform.position.x + lookingSpot.x), heldObject.transform.localScale.y / 2, Mathf.Round(transform.position.z + lookingSpot.z)) ;
             Collider[] hit = Physics.OverlapBox(roundedPosition, new(1f, heldObject.transform.localScale.y/2, 1f), Quaternion.identity, stoppa);
-            for (int i = 0; i < hit.Length; i++)
+            if (hit.Length != 0)
             {
-                if (hit[i].gameObject == heldObject.gameObject)
+                for (int i = 0; i < hit.Length; i++)
                 {
-                    hit[i] = null;
+                    if (hit[i].gameObject == heldObject)
+                    {
+                        Debug.Log("Hit nullified; Name: " + hit[i].gameObject.name);
+                        hit[i] = null;
+                        
+
+                    }
+                    else
+                    {
+                        Debug.Log("Hit deteted; Name: " + hit[i].gameObject.name);
+                    }
+
                 }
             }
 
@@ -77,6 +88,10 @@ public class PlayerMovement : MonoBehaviour
 
             hit = null;
 
+        }
+        if (Input.GetKeyDown(KeyCode.R) && holding)
+        {
+            pickupScript.ghost.transform.Rotate(0, 90, 0);
         }
         if (Input.GetKeyDown(KeyCode.E) && !holding)
         {
@@ -109,6 +124,8 @@ public class PlayerMovement : MonoBehaviour
         {
                 Debug.Log("Object placed down, object name: " + heldObject.name);
                 heldObject.transform.position = pickupScript.ghost.transform.position;
+            heldObject.transform.rotation = pickupScript.ghost.transform.rotation;
+            
                 holding = false;
                 clearPlace = false;
                 pickupScript.ghost.SetActive(false);
